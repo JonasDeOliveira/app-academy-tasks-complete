@@ -27,7 +27,7 @@ export default class AddTask extends Component<Props, State> {
     save = (): void => {
         const newTask = {
             desc: this.state.desc,
-            estimateAt: this.state.date
+            estimateAt: moment(this.state.date).format('YYYY-MM-DD h:mm:ss')
         }
 
         this.props.onSave && this.props.onSave(newTask)
@@ -36,7 +36,10 @@ export default class AddTask extends Component<Props, State> {
 
     getDatePicker = (): React.ReactElement => {
         let datePicker = <DateTimePicker value={this.state.date}
-            onChange={(_, date) => this.setState({ date, showDatePicker: false })}
+            onChange={(_, date) => {
+                date = date ? date : new Date()
+                this.setState({ date, showDatePicker: false })
+            }}
             mode='date' />
         
         const dateString = moment(this.state.date).format('ddd, D [de] MMMM [de] YYYY')

@@ -106,6 +106,7 @@ export default class TaskList extends Component<Props, State> {
 
             this.setState({ showAddTask: false }, this.loadTasks)
         } catch(e) {
+            console.warn(e.response);
             showError(e)
         }
     }
